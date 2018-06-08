@@ -80,12 +80,14 @@
   <ItemGroup>
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="SpotList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Draw.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="SpotList.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">

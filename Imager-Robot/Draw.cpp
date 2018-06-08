@@ -4,14 +4,15 @@ using namespace System::IO::Ports;
 using namespace System;
 using namespace std;
 
-const double ORI_X = 13;
-const double ORI_Y = 2;
-const double ORI_Z = 65.75;
+const float ORI_X = 13;
+const float ORI_Y = 2;
+const float ORI_Z = 65.5;
 
 void XCarve_run(vector<string> instr, int size, SerialPort^ XCPort){
 	for (int i = 0; i < size; i++){
 		String^ next = gcnew String(instr[i].c_str());
 		XCPort->Write(next);
+		delete next;
 		XCPort->ReadLine(); //wait for response, then send next instruction. not doing this breaks something (buffer overflow, maybe?)
 	}
 }
@@ -35,7 +36,7 @@ SerialPort^ XCarve_init() {                   //TODO: Error handling
 	return XCPort;
 }
 
-bool move_parse(string move, int* x, int* y){ //Parses instruction in format "M a b", sets *x=a *y=b, returns false if something goes wrong
+bool move_parse(string move, float* x, float* y){ //Parses instruction in format "M a b", sets *x=a *y=b, returns false if something goes wrong
 	int xstart = move.find(" ") + 1; //index of the first character of the x position
 	if (xstart == 0) { return false; } //this means that xstart = -1 + 1, so nothing was found
 
@@ -47,8 +48,8 @@ bool move_parse(string move, int* x, int* y){ //Parses instruction in format "M 
 	string xstr = x_y.substr(0, ystart - 1);
 	string ystr = x_y.substr(ystart, x_y.length() - ystart);
 
-	*x = stoi(xstr, nullptr); //parses the x and y values
-	*y = stoi(ystr, nullptr);
+	*x = stof(xstr, nullptr); //parses the x and y values
+	*y = stof(ystr, nullptr);
 
 	return true;
 }
@@ -61,8 +62,8 @@ void XCarve_draw(vector<string> draw, int size, SerialPort^ XCPort){
 	grbls.push_back(zero);
 
 	bool down = false;
-	int x = 0;
-	int y = 0;
+	float x = 0;
+	float y = 0;
 
 	//TODO: Upper bound checking
 
@@ -82,14 +83,14 @@ void XCarve_draw(vector<string> draw, int size, SerialPort^ XCPort){
 			}
 		}
 		else if (draw[i][0] == 'M'){ //in the format M a b
-			int newx;
-			int newy;
+			float newx;
+			float newy;
 
 			bool parsed = move_parse(draw[i], &newx, &newy); //is true if properly parsed
 
 			if (parsed && newx >= 0 && newy >= 0){
-				int xdist = newx - x;
-				int ydist = newy - y;
+				float xdist = newx - x;
+				float ydist = newy - y;
 
 				string message = "G91 G0 X" + to_string(xdist) + " Y" + to_string(ydist) + "\n";
 				grbls.push_back(message);
