@@ -3,19 +3,21 @@
 
 using namespace std;
 
-struct spot_t {
-    int x;
-    int y;
-    string tip;
-    bool eluted;
+typedef struct spot_header* spot;
+
+struct spot_header {
+	float x;
+	float y;
+	string tip;
+	bool eluted;
 };
 
-typedef struct spot_t spot;
+//IMPORTANT: Spots are 1-indexed
 
 class SpotList {
     vector<spot> spots;
     public:
-        void add_spot(int x, int y, string tip); //adds a spot to the list
+        void add_spot(float x, float y, string tip); //adds a spot to the list
         void remove_spot(int n); //removes spot n from list
         void set_tip(int n, string tip); //changes the tip of spot n to tip
         void elute(int n); //marks spot n as eluted
