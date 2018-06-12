@@ -22,6 +22,8 @@ class SpotList {
         void set_tip(int n, string tip); //changes the tip of spot n to tip
         void elute(int n); //marks spot n as eluted
 
+        int num_spots(); //returns number of spots
+
         vector<spot> spots_in_tip(string tip); //returns a vector of the spots in a certain tip
         vector<spot> not_eluted(); //returns vector of spots not yet eluted
         
