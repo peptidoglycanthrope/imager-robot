@@ -16,7 +16,12 @@ struct spot_header {
 
 class SpotList {
     vector<spot> spots;
+    string* err; //used for error reporting
+    private:
+        bool valid_num(int n); //true if spot number is valid
     public:
+        SpotList(string* error);
+
         void add_spot(float x, float y, string tip); //adds a spot to the list
         void remove_spot(int n); //removes spot n from list
         void set_tip(int n, string tip); //changes the tip of spot n to tip
