@@ -21,23 +21,51 @@ bool SpotList::valid_num(int n) {
 	return (1 <= n && n <= (int)spots.size());
 }
 
+bool valid_zoom(float x, float y, float side) {
+	if (side <= 0) {
+		return false;
+	}
+	float half = side/2;
+	if (x - half < 0 || x + half > MAX_X){ //within horizontal bounds
+		return false;
+	}
+	if (y - half < 0 || y + half > MAX_Y){ //within vertical bounds
+		return false;
+	}
+	return true;
+}
+
+bool same_zoom(zoom z1, zoom z2) { //true if zooms are equivalent
+	return (z1->x == z2->x && z1->y == z2->y && z1->side == z2->side);
+}
+
 SpotList::SpotList(string* error) {
 	err = error;
 	return;
 }
 
-void SpotList::add_spot(float x, float y, string tip) { //adds a spot to the list
+void SpotList::add_spot(float x, float y, string tip, float z_x, float z_y, float z_side) { //adds a spot to the list at position (x,y) with a zoom area centered at (z_x, z_y) with side length z_side
     *err = ""; //clear error message
     if (!valid_coords(x,y) || !valid_tip(tip)) { //if any argument is invalid
     	*err = "Spot is invalid.";
     	return;
     }
+    if (!valid_zoom(z_x, z_y, z_side)) { //if the area given is invalid
+    	*err = "Zoom area is invalid.";
+    	return;
+    }
+
+    zoom newzoom = new zoom_header;
+    newzoom->x = z_x;
+    newzoom->y = z_y;
+    newzoom->side = z_side;
 
     spot newspot = new spot_header;
 	newspot->x = x;
 	newspot->y = y;
 	newspot->tip = tip;
 	newspot->eluted = false;
+	newspot->area = newzoom;
 	spots.push_back(newspot);
 	return;
 }
@@ -52,6 +80,7 @@ void SpotList::remove_spot(int n) { //removes spot n from list (spots are 1-inde
 	int index = n - 1;
     spot to_remove = spots[index];
 	spots.erase(spots.begin() + index);
+	delete to_remove->area;
     delete to_remove;
     return;
 }
@@ -114,6 +143,28 @@ vector<spot> SpotList::not_eluted() { //returns vector of spots not yet eluted
 	return not_eluted;
 }
 
+vector<zoom> SpotList::eluted_areas(){ //returns a vector of the areas around every eluted spot
+	*err = "";
+
+	vector<zoom> areas;
+	for (int i = 0; i < (int)spots.size(); i++){
+		if (spots[i]->eluted) { //for every eluted spot
+			zoom thisarea = spots[i]->area;
+			bool is_new = true;
+			for (int j = 0; j < (int)areas.size(); j++){ //for every area
+				if (same_zoom(thisarea, areas[j])){ //if we already saw this zoom
+					is_new = false;
+					break;
+				}
+			}
+			if (is_new) {
+				areas.push_back(thisarea);
+			}
+		}
+	}
+	return areas;
+}
+
 string SpotList::spot_rep(int n) { //returns string representation of spot n, empty if error
 	*err = "";
 	if (!valid_num(n)) {
@@ -139,21 +190,44 @@ bool SpotList::is_eluted(int n) { //returns whether or not spot n is eluted, fal
 	int index = n - 1;
 	return spots[index]->eluted;
 }
+
 /*
 int main() {
 	string err = "";
 	SpotList SL (&err);
 
-	//test add_spot invalid
-	SL.add_spot(150,50,"A1");
+	//test invalid area
+	SL.add_spot(50,50,"A1",10,10,50);
 	cout << "ERROR: " << err << endl;
-	cout << to_string(SL.num_spots()) << " spots" << endl;
-	SL.add_spot(50,50,"A1");
-	cout << "ERROR: " << err << endl;
-	cout << to_string(SL.num_spots()) << " spots" << endl;
+	//ERROR: Zoom area is invalid.
 
+	SL.add_spot(50,50,"A1",50,50,10);
+	
+	int unique_areas;
+
+	unique_areas = (int)SL.eluted_areas().size();
+	cout << to_string(unique_areas) << " unique area(s)" << endl;
+	//0 unique area(s)
+
+	SL.elute(1);
+
+	unique_areas = (int)SL.eluted_areas().size();
+	cout << to_string(unique_areas) << " unique area(s)" << endl;
+	//1 unique area(s)
+
+	SL.add_spot(50,50,"A1",50,50,10);
 	SL.elute(2);
-	cout << "ERROR: " << err << endl; 
+
+	unique_areas = (int)SL.eluted_areas().size();
+	cout << to_string(unique_areas) << " unique area(s)" << endl;
+	//1 unique area(s)
+
+	SL.add_spot(50,50,"A1",60,60,10);
+	SL.elute(3);
+
+	unique_areas = (int)SL.eluted_areas().size();
+	cout << to_string(unique_areas) << " unique area(s)" << endl;
+	//2 unique area(s)
 
     return 0;
-}*/
+} */
