@@ -5,7 +5,7 @@ using namespace System::IO::Ports;
 using namespace System;
 using namespace std;
 
-class XCarve {
+ref class XCarve {
     SerialPort^ XCPort;
     private:
         void run(vector<string> instr);

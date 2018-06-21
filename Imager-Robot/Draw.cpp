@@ -9,7 +9,7 @@ const float ORI_Y = 2;
 const float ORI_Z = 65.5;
 
 void XCarve::run(vector<string> instr){
-	int size = instr.length();
+	int size = instr.size();
 	for (int i = 0; i < size; i++){
 		String^ next = gcnew String(instr[i].c_str());
 		XCPort->Write(next);
@@ -55,7 +55,7 @@ bool move_parse(string move, float* x, float* y){ //Parses instruction in format
 }
 
 void XCarve::draw(vector<string> draw){
-	int size = draw.length();
+	int size = draw.size();
 	//going to assume the unlocking, homing, and zeroing is done in this function and is not specified by the user
 	vector<string> grbls = { "$X\n", "$H\n" }; //unlock home zero
 
