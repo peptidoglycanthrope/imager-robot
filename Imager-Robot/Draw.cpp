@@ -8,7 +8,8 @@ const float ORI_X = 13;
 const float ORI_Y = 2;
 const float ORI_Z = 65.5;
 
-void XCarve_run(vector<string> instr, int size, SerialPort^ XCPort){
+void XCarve::run(vector<string> instr){
+	int size = instr.length();
 	for (int i = 0; i < size; i++){
 		String^ next = gcnew String(instr[i].c_str());
 		XCPort->Write(next);
@@ -17,9 +18,8 @@ void XCarve_run(vector<string> instr, int size, SerialPort^ XCPort){
 	}
 }
 
-SerialPort^ XCarve_init() {                   //TODO: Error handling
+void XCarve::init() {                   //TODO: Error handling
 	//initialize the port
-	SerialPort^ XCPort;
 	XCPort = gcnew SerialPort();
 
 	//give it the right settings (no parity check is the default)
@@ -33,7 +33,7 @@ SerialPort^ XCarve_init() {                   //TODO: Error handling
 
 	XCPort->Write("\n"); //wakeup message
 
-	return XCPort;
+	return;
 }
 
 bool move_parse(string move, float* x, float* y){ //Parses instruction in format "M a b", sets *x=a *y=b, returns false if something goes wrong
@@ -54,7 +54,8 @@ bool move_parse(string move, float* x, float* y){ //Parses instruction in format
 	return true;
 }
 
-void XCarve_draw(vector<string> draw, int size, SerialPort^ XCPort){
+void XCarve::draw(vector<string> draw){
+	int size = draw.length();
 	//going to assume the unlocking, homing, and zeroing is done in this function and is not specified by the user
 	vector<string> grbls = { "$X\n", "$H\n" }; //unlock home zero
 
@@ -100,5 +101,5 @@ void XCarve_draw(vector<string> draw, int size, SerialPort^ XCPort){
 			}
 		}
 	}
-	XCarve_run(grbls, grbls.size(), XCPort); //run the commands you wrote
+	run(grbls); //run the commands you wrote
 }
