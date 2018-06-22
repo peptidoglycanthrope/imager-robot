@@ -1,17 +1,17 @@
-﻿Build started 6/11/2018 8:33:50 PM.
+﻿Build started 6/22/2018 1:46:38 PM.
      1>Project "C:\Users\EluterUser\Documents\git-repos\imager-robot\Imager-Robot\Imager-Robot.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib SpotList.cpp
-         SpotList.cpp
-     1>c:\users\eluteruser\documents\git-repos\imager-robot\imager-robot\spotlist.cpp(6): warning C4700: uninitialized local variable 'newspot' used
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\EluterUser\Documents\git-repos\imager-robot\Debug\Imager-Robot.exe" /INCREMENTAL /NOLOGO /ASSEMBLYRESOURCE:Debug\ImagerRobot.MyForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\EluterUser\Documents\git-repos\imager-robot\Debug\Imager-Robot.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\Draw.obj
-         Debug\MyForm.obj
-         Debug\SpotList.obj
-         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
-         Imager-Robot.vcxproj -> C:\Users\EluterUser\Documents\git-repos\imager-robot\Debug\Imager-Robot.exe
-     1>Done Building Project "C:\Users\EluterUser\Documents\git-repos\imager-robot\Imager-Robot\Imager-Robot.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib ImgAcquire.cpp MyForm.cpp
+         ImgAcquire.cpp
+     1>c:\users\eluteruser\documents\git-repos\imager-robot\imager-robot\ImgAcquire.h(3): fatal error C1083: Cannot open include file: 'pvcam_helper_color.h': No such file or directory
+         MyForm.cpp
+     1>c:\users\eluteruser\documents\git-repos\imager-robot\imager-robot\MyForm.h(1105): warning C4101: 'x' : unreferenced local variable
+     1>c:\users\eluteruser\documents\git-repos\imager-robot\imager-robot\MyForm.h(1115): warning C4101: 'y' : unreferenced local variable
+     1>c:\users\eluteruser\documents\git-repos\imager-robot\imager-robot\MyForm.h(1125): warning C4101: 'sl' : unreferenced local variable
+     1>c:\users\eluteruser\documents\git-repos\imager-robot\imager-robot\ImgAcquire.h(3): fatal error C1083: Cannot open include file: 'pvcam_helper_color.h': No such file or directory
+         Generating Code...
+     1>Done Building Project "C:\Users\EluterUser\Documents\git-repos\imager-robot\Imager-Robot\Imager-Robot.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.18
+Time Elapsed 00:00:00.69

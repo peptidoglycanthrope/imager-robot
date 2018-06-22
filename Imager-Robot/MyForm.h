@@ -8,6 +8,7 @@ namespace ImagerRobot {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace std;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -34,9 +35,9 @@ namespace ImagerRobot {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^  SaveLocationLabel;
+
 	protected:
-	private: System::Windows::Forms::RichTextBox^  SaveLocation;
+
 	private: System::Windows::Forms::PictureBox^  ImageDisplay;
 	private: System::Windows::Forms::Label^  ImageName;
 	private: System::Windows::Forms::TrackBar^  BrightnessSlider;
@@ -79,7 +80,9 @@ namespace ImagerRobot {
 	private: System::Windows::Forms::Label^  ElutionTimeBox;
 	private: System::Windows::Forms::Label^  CurrentBox;
 	private: System::Windows::Forms::Label^  VoltageBox;
-	private: System::Windows::Forms::RichTextBox^  ExposureTimeEnter;
+	private: System::Windows::Forms::RichTextBox^  Cy2ExposureEnter;
+
+
 
 	private: System::Windows::Forms::Label^  ExposureLabel;
 	private: System::Windows::Forms::CheckBox^  Cy5Select;
@@ -87,8 +90,10 @@ namespace ImagerRobot {
 	private: System::Windows::Forms::CheckBox^  Cy2Select;
 	private: System::Windows::Forms::Label^  ImageBoxLabel;
 	private: System::Windows::Forms::ListBox^  ImageBox;
-	private: System::Windows::Forms::Button^  AquireImageButton;
-	private: System::Windows::Forms::PictureBox^  ZoomBox;
+	private: System::Windows::Forms::Button^  AcquireImageButton;
+
+	private: System::Windows::Forms::PictureBox^  Zoom;
+
 	private: System::Windows::Forms::Label^  Zoom0;
 	private: System::Windows::Forms::Label^  ZoomX2048;
 	private: System::Windows::Forms::Label^  ZoomY2048;
@@ -101,10 +106,18 @@ namespace ImagerRobot {
 	private: System::Windows::Forms::Label^  NewCenterLabel;
 	private: System::Windows::Forms::RichTextBox^  CenterXEnter;
 	private: System::Windows::Forms::RichTextBox^  CenterYEnter;
-	private: System::Windows::Forms::RichTextBox^  richTextBox1;
+	private: System::Windows::Forms::RichTextBox^  SideLengthEnter;
+
 	private: System::Windows::Forms::Button^  ResetZoomButton;
 	private: System::Windows::Forms::Button^  ApplyZoomButton;
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  CurrentZoom;
+
+	private: System::Windows::Forms::RichTextBox^  Cy3ExposureEnter;
+	private: System::Windows::Forms::RichTextBox^  richTextBox1;
+	private: System::Windows::Forms::Button^  RemoveImageButton;
+	private: System::Windows::Forms::Button^  SaveImageButton;
+	private: System::Windows::Forms::CheckBox^  DisplaySpotsSelect;
+
 
 
 
@@ -133,8 +146,6 @@ namespace ImagerRobot {
 		void InitializeComponent(void)
 		{
 			this->SpotBox = (gcnew System::Windows::Forms::ListBox());
-			this->SaveLocationLabel = (gcnew System::Windows::Forms::Label());
-			this->SaveLocation = (gcnew System::Windows::Forms::RichTextBox());
 			this->ImageDisplay = (gcnew System::Windows::Forms::PictureBox());
 			this->ImageName = (gcnew System::Windows::Forms::Label());
 			this->BrightnessSlider = (gcnew System::Windows::Forms::TrackBar());
@@ -146,13 +157,16 @@ namespace ImagerRobot {
 			this->ContrastLabel = (gcnew System::Windows::Forms::Label());
 			this->ContrastSlider = (gcnew System::Windows::Forms::TrackBar());
 			this->ImagerBox = (gcnew System::Windows::Forms::GroupBox());
+			this->RemoveImageButton = (gcnew System::Windows::Forms::Button());
+			this->SaveImageButton = (gcnew System::Windows::Forms::Button());
+			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
+			this->Cy3ExposureEnter = (gcnew System::Windows::Forms::RichTextBox());
 			this->ImageBoxLabel = (gcnew System::Windows::Forms::Label());
 			this->ImageBox = (gcnew System::Windows::Forms::ListBox());
-			this->AquireImageButton = (gcnew System::Windows::Forms::Button());
 			this->Cy5Select = (gcnew System::Windows::Forms::CheckBox());
 			this->Cy3Select = (gcnew System::Windows::Forms::CheckBox());
 			this->Cy2Select = (gcnew System::Windows::Forms::CheckBox());
-			this->ExposureTimeEnter = (gcnew System::Windows::Forms::RichTextBox());
+			this->Cy2ExposureEnter = (gcnew System::Windows::Forms::RichTextBox());
 			this->ExposureLabel = (gcnew System::Windows::Forms::Label());
 			this->ScalingBox = (gcnew System::Windows::Forms::GroupBox());
 			this->ApplyButton = (gcnew System::Windows::Forms::Button());
@@ -161,7 +175,9 @@ namespace ImagerRobot {
 			this->MaxEnter = (gcnew System::Windows::Forms::RichTextBox());
 			this->MinEnter = (gcnew System::Windows::Forms::RichTextBox());
 			this->MinMaxDisplay = (gcnew System::Windows::Forms::Label());
+			this->AcquireImageButton = (gcnew System::Windows::Forms::Button());
 			this->EluterBox = (gcnew System::Windows::Forms::GroupBox());
+			this->DisplaySpotsSelect = (gcnew System::Windows::Forms::CheckBox());
 			this->ElutionTimeBox = (gcnew System::Windows::Forms::Label());
 			this->CurrentBox = (gcnew System::Windows::Forms::Label());
 			this->VoltageBox = (gcnew System::Windows::Forms::Label());
@@ -181,7 +197,7 @@ namespace ImagerRobot {
 			this->TipLabel = (gcnew System::Windows::Forms::Label());
 			this->LoadButton = (gcnew System::Windows::Forms::Button());
 			this->AdvancedBox = (gcnew System::Windows::Forms::GroupBox());
-			this->ZoomBox = (gcnew System::Windows::Forms::PictureBox());
+			this->Zoom = (gcnew System::Windows::Forms::PictureBox());
 			this->Zoom0 = (gcnew System::Windows::Forms::Label());
 			this->ZoomX2048 = (gcnew System::Windows::Forms::Label());
 			this->ZoomY2048 = (gcnew System::Windows::Forms::Label());
@@ -190,60 +206,40 @@ namespace ImagerRobot {
 			this->CurrentZoomDisplay = (gcnew System::Windows::Forms::Label());
 			this->CurrentZoomBox = (gcnew System::Windows::Forms::GroupBox());
 			this->NewZoomBox = (gcnew System::Windows::Forms::GroupBox());
-			this->NewCenterLabel = (gcnew System::Windows::Forms::Label());
-			this->SideLengthLabel = (gcnew System::Windows::Forms::Label());
-			this->CenterXEnter = (gcnew System::Windows::Forms::RichTextBox());
-			this->CenterYEnter = (gcnew System::Windows::Forms::RichTextBox());
-			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->ApplyZoomButton = (gcnew System::Windows::Forms::Button());
 			this->ResetZoomButton = (gcnew System::Windows::Forms::Button());
+			this->ApplyZoomButton = (gcnew System::Windows::Forms::Button());
+			this->SideLengthEnter = (gcnew System::Windows::Forms::RichTextBox());
+			this->CenterYEnter = (gcnew System::Windows::Forms::RichTextBox());
+			this->CenterXEnter = (gcnew System::Windows::Forms::RichTextBox());
+			this->SideLengthLabel = (gcnew System::Windows::Forms::Label());
+			this->NewCenterLabel = (gcnew System::Windows::Forms::Label());
+			this->CurrentZoom = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageDisplay))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BrightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ContrastSlider))->BeginInit();
 			this->ImagerBox->SuspendLayout();
 			this->ScalingBox->SuspendLayout();
 			this->EluterBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ZoomBox))->BeginInit();
-			this->CurrentZoomBox->SuspendLayout();
+			this->AdvancedBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Zoom))->BeginInit();
 			this->NewZoomBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CurrentZoom))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// SpotBox
 			// 
 			this->SpotBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.5F));
 			this->SpotBox->FormattingEnabled = true;
-			this->SpotBox->Location = System::Drawing::Point(10, 139);
+			this->SpotBox->Location = System::Drawing::Point(10, 98);
 			this->SpotBox->Name = L"SpotBox";
 			this->SpotBox->ScrollAlwaysVisible = true;
 			this->SpotBox->Size = System::Drawing::Size(75, 251);
 			this->SpotBox->TabIndex = 6;
 			// 
-			// SaveLocationLabel
-			// 
-			this->SaveLocationLabel->AutoSize = true;
-			this->SaveLocationLabel->Cursor = System::Windows::Forms::Cursors::Default;
-			this->SaveLocationLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->SaveLocationLabel->Location = System::Drawing::Point(10, 10);
-			this->SaveLocationLabel->Name = L"SaveLocationLabel";
-			this->SaveLocationLabel->Size = System::Drawing::Size(96, 15);
-			this->SaveLocationLabel->TabIndex = 0;
-			this->SaveLocationLabel->Text = L"Save pictures to:";
-			// 
-			// SaveLocation
-			// 
-			this->SaveLocation->Location = System::Drawing::Point(110, 10);
-			this->SaveLocation->Name = L"SaveLocation";
-			this->SaveLocation->Size = System::Drawing::Size(466, 20);
-			this->SaveLocation->TabIndex = 1;
-			this->SaveLocation->Text = L"";
-			// 
 			// ImageDisplay
 			// 
 			this->ImageDisplay->BackColor = System::Drawing::Color::Black;
-			this->ImageDisplay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->ImageDisplay->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->ImageDisplay->Cursor = System::Windows::Forms::Cursors::Cross;
 			this->ImageDisplay->Location = System::Drawing::Point(586, 29);
 			this->ImageDisplay->Name = L"ImageDisplay";
@@ -253,18 +249,15 @@ namespace ImagerRobot {
 			// 
 			// ImageName
 			// 
-			this->ImageName->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
 			this->ImageName->BackColor = System::Drawing::Color::Transparent;
 			this->ImageName->Cursor = System::Windows::Forms::Cursors::Default;
-			this->ImageName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->ImageName->Location = System::Drawing::Point(586, 7);
+			this->ImageName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			this->ImageName->Location = System::Drawing::Point(586, 2);
 			this->ImageName->Name = L"ImageName";
-			this->ImageName->Size = System::Drawing::Size(750, 15);
+			this->ImageName->Size = System::Drawing::Size(750, 20);
 			this->ImageName->TabIndex = 3;
 			this->ImageName->Text = L"[ Image Name ] ";
-			this->ImageName->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->ImageName->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// BrightnessSlider
 			// 
@@ -363,23 +356,65 @@ namespace ImagerRobot {
 			// ImagerBox
 			// 
 			this->ImagerBox->BackColor = System::Drawing::Color::White;
+			this->ImagerBox->Controls->Add(this->RemoveImageButton);
+			this->ImagerBox->Controls->Add(this->SaveImageButton);
+			this->ImagerBox->Controls->Add(this->richTextBox1);
+			this->ImagerBox->Controls->Add(this->Cy3ExposureEnter);
 			this->ImagerBox->Controls->Add(this->ImageBoxLabel);
 			this->ImagerBox->Controls->Add(this->ImageBox);
-			this->ImagerBox->Controls->Add(this->AquireImageButton);
 			this->ImagerBox->Controls->Add(this->Cy5Select);
 			this->ImagerBox->Controls->Add(this->Cy3Select);
 			this->ImagerBox->Controls->Add(this->Cy2Select);
-			this->ImagerBox->Controls->Add(this->ExposureTimeEnter);
+			this->ImagerBox->Controls->Add(this->Cy2ExposureEnter);
 			this->ImagerBox->Controls->Add(this->ExposureLabel);
 			this->ImagerBox->Controls->Add(this->ScalingBox);
+			this->ImagerBox->Controls->Add(this->AcquireImageButton);
 			this->ImagerBox->Cursor = System::Windows::Forms::Cursors::Default;
 			this->ImagerBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
-			this->ImagerBox->Location = System::Drawing::Point(10, 30);
+			this->ImagerBox->Location = System::Drawing::Point(10, 5);
 			this->ImagerBox->Name = L"ImagerBox";
-			this->ImagerBox->Size = System::Drawing::Size(278, 400);
+			this->ImagerBox->Size = System::Drawing::Size(278, 405);
 			this->ImagerBox->TabIndex = 12;
 			this->ImagerBox->TabStop = false;
 			this->ImagerBox->Text = L"Imager";
+			// 
+			// RemoveImageButton
+			// 
+			this->RemoveImageButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->RemoveImageButton->Location = System::Drawing::Point(108, 375);
+			this->RemoveImageButton->Name = L"RemoveImageButton";
+			this->RemoveImageButton->Size = System::Drawing::Size(100, 25);
+			this->RemoveImageButton->TabIndex = 12;
+			this->RemoveImageButton->Text = L"Remove Image";
+			this->RemoveImageButton->UseVisualStyleBackColor = true;
+			// 
+			// SaveImageButton
+			// 
+			this->SaveImageButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->SaveImageButton->Location = System::Drawing::Point(9, 375);
+			this->SaveImageButton->Name = L"SaveImageButton";
+			this->SaveImageButton->Size = System::Drawing::Size(100, 25);
+			this->SaveImageButton->TabIndex = 11;
+			this->SaveImageButton->Text = L"Save Image";
+			this->SaveImageButton->UseVisualStyleBackColor = true;
+			// 
+			// richTextBox1
+			// 
+			this->richTextBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->richTextBox1->Location = System::Drawing::Point(223, 138);
+			this->richTextBox1->Name = L"richTextBox1";
+			this->richTextBox1->Size = System::Drawing::Size(45, 25);
+			this->richTextBox1->TabIndex = 10;
+			this->richTextBox1->Text = L"1";
+			// 
+			// Cy3ExposureEnter
+			// 
+			this->Cy3ExposureEnter->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->Cy3ExposureEnter->Location = System::Drawing::Point(168, 138);
+			this->Cy3ExposureEnter->Name = L"Cy3ExposureEnter";
+			this->Cy3ExposureEnter->Size = System::Drawing::Size(45, 25);
+			this->Cy3ExposureEnter->TabIndex = 9;
+			this->Cy3ExposureEnter->Text = L"1";
 			// 
 			// ImageBoxLabel
 			// 
@@ -399,23 +434,13 @@ namespace ImagerRobot {
 			this->ImageBox->Location = System::Drawing::Point(10, 191);
 			this->ImageBox->Name = L"ImageBox";
 			this->ImageBox->ScrollAlwaysVisible = true;
-			this->ImageBox->Size = System::Drawing::Size(258, 199);
+			this->ImageBox->Size = System::Drawing::Size(258, 184);
 			this->ImageBox->TabIndex = 7;
-			// 
-			// AquireImageButton
-			// 
-			this->AquireImageButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->AquireImageButton->Location = System::Drawing::Point(176, 125);
-			this->AquireImageButton->Name = L"AquireImageButton";
-			this->AquireImageButton->Size = System::Drawing::Size(88, 25);
-			this->AquireImageButton->TabIndex = 6;
-			this->AquireImageButton->Text = L"Aquire Image";
-			this->AquireImageButton->UseVisualStyleBackColor = true;
 			// 
 			// Cy5Select
 			// 
 			this->Cy5Select->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->Cy5Select->Location = System::Drawing::Point(120, 140);
+			this->Cy5Select->Location = System::Drawing::Point(223, 110);
 			this->Cy5Select->Name = L"Cy5Select";
 			this->Cy5Select->Size = System::Drawing::Size(50, 25);
 			this->Cy5Select->TabIndex = 5;
@@ -426,7 +451,7 @@ namespace ImagerRobot {
 			// Cy3Select
 			// 
 			this->Cy3Select->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->Cy3Select->Location = System::Drawing::Point(65, 140);
+			this->Cy3Select->Location = System::Drawing::Point(168, 110);
 			this->Cy3Select->Name = L"Cy3Select";
 			this->Cy3Select->Size = System::Drawing::Size(50, 25);
 			this->Cy3Select->TabIndex = 4;
@@ -437,7 +462,7 @@ namespace ImagerRobot {
 			// Cy2Select
 			// 
 			this->Cy2Select->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->Cy2Select->Location = System::Drawing::Point(10, 140);
+			this->Cy2Select->Location = System::Drawing::Point(113, 110);
 			this->Cy2Select->Name = L"Cy2Select";
 			this->Cy2Select->Size = System::Drawing::Size(50, 25);
 			this->Cy2Select->TabIndex = 3;
@@ -445,24 +470,24 @@ namespace ImagerRobot {
 			this->Cy2Select->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->Cy2Select->UseVisualStyleBackColor = true;
 			// 
-			// ExposureTimeEnter
+			// Cy2ExposureEnter
 			// 
-			this->ExposureTimeEnter->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->ExposureTimeEnter->Location = System::Drawing::Point(105, 110);
-			this->ExposureTimeEnter->Name = L"ExposureTimeEnter";
-			this->ExposureTimeEnter->Size = System::Drawing::Size(58, 25);
-			this->ExposureTimeEnter->TabIndex = 2;
-			this->ExposureTimeEnter->Text = L"";
+			this->Cy2ExposureEnter->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->Cy2ExposureEnter->Location = System::Drawing::Point(113, 138);
+			this->Cy2ExposureEnter->Name = L"Cy2ExposureEnter";
+			this->Cy2ExposureEnter->Size = System::Drawing::Size(45, 25);
+			this->Cy2ExposureEnter->TabIndex = 2;
+			this->Cy2ExposureEnter->Text = L"1";
 			// 
 			// ExposureLabel
 			// 
 			this->ExposureLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->ExposureLabel->Location = System::Drawing::Point(10, 108);
+			this->ExposureLabel->Location = System::Drawing::Point(8, 135);
 			this->ExposureLabel->Name = L"ExposureLabel";
 			this->ExposureLabel->Size = System::Drawing::Size(95, 25);
 			this->ExposureLabel->TabIndex = 1;
 			this->ExposureLabel->Text = L"Exposure (sec):";
-			this->ExposureLabel->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->ExposureLabel->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// ScalingBox
 			// 
@@ -488,6 +513,7 @@ namespace ImagerRobot {
 			this->ApplyButton->TabIndex = 5;
 			this->ApplyButton->Text = L"Apply";
 			this->ApplyButton->UseVisualStyleBackColor = true;
+			this->ApplyButton->Click += gcnew System::EventHandler(this, &MyForm::ApplyButton_Click);
 			// 
 			// MaxEnterLabel
 			// 
@@ -535,9 +561,20 @@ namespace ImagerRobot {
 			this->MinMaxDisplay->Text = L"Min: 0, Max: 0";
 			this->MinMaxDisplay->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
+			// AcquireImageButton
+			// 
+			this->AcquireImageButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->AcquireImageButton->Location = System::Drawing::Point(10, 110);
+			this->AcquireImageButton->Name = L"AcquireImageButton";
+			this->AcquireImageButton->Size = System::Drawing::Size(95, 25);
+			this->AcquireImageButton->TabIndex = 6;
+			this->AcquireImageButton->Text = L"Acquire Image";
+			this->AcquireImageButton->UseVisualStyleBackColor = true;
+			// 
 			// EluterBox
 			// 
 			this->EluterBox->BackColor = System::Drawing::Color::White;
+			this->EluterBox->Controls->Add(this->DisplaySpotsSelect);
 			this->EluterBox->Controls->Add(this->ElutionTimeBox);
 			this->EluterBox->Controls->Add(this->CurrentBox);
 			this->EluterBox->Controls->Add(this->VoltageBox);
@@ -556,15 +593,25 @@ namespace ImagerRobot {
 			this->EluterBox->Controls->Add(this->NextButton);
 			this->EluterBox->Controls->Add(this->PrevButton);
 			this->EluterBox->Controls->Add(this->TipLabel);
-			this->EluterBox->Controls->Add(this->LoadButton);
 			this->EluterBox->Cursor = System::Windows::Forms::Cursors::Default;
 			this->EluterBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
-			this->EluterBox->Location = System::Drawing::Point(298, 30);
+			this->EluterBox->Location = System::Drawing::Point(298, 5);
 			this->EluterBox->Name = L"EluterBox";
-			this->EluterBox->Size = System::Drawing::Size(278, 400);
+			this->EluterBox->Size = System::Drawing::Size(278, 405);
 			this->EluterBox->TabIndex = 13;
 			this->EluterBox->TabStop = false;
 			this->EluterBox->Text = L"Eluter";
+			// 
+			// DisplaySpotsSelect
+			// 
+			this->DisplaySpotsSelect->AutoSize = true;
+			this->DisplaySpotsSelect->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->DisplaySpotsSelect->Location = System::Drawing::Point(135, 158);
+			this->DisplaySpotsSelect->Name = L"DisplaySpotsSelect";
+			this->DisplaySpotsSelect->Size = System::Drawing::Size(100, 19);
+			this->DisplaySpotsSelect->TabIndex = 22;
+			this->DisplaySpotsSelect->Text = L"Display Spots";
+			this->DisplaySpotsSelect->UseVisualStyleBackColor = true;
 			// 
 			// ElutionTimeBox
 			// 
@@ -600,7 +647,7 @@ namespace ImagerRobot {
 			this->VoltageBoxLabel->Name = L"VoltageBoxLabel";
 			this->VoltageBoxLabel->Size = System::Drawing::Size(61, 30);
 			this->VoltageBoxLabel->TabIndex = 18;
-			this->VoltageBoxLabel->Text = L"Voltage (V)";
+			this->VoltageBoxLabel->Text = L"Voltage";
 			this->VoltageBoxLabel->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// CurrentBoxLabel
@@ -610,23 +657,23 @@ namespace ImagerRobot {
 			this->CurrentBoxLabel->Name = L"CurrentBoxLabel";
 			this->CurrentBoxLabel->Size = System::Drawing::Size(61, 30);
 			this->CurrentBoxLabel->TabIndex = 17;
-			this->CurrentBoxLabel->Text = L"Current (mA)";
+			this->CurrentBoxLabel->Text = L"Current";
 			this->CurrentBoxLabel->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// ElutionTimeLabel
 			// 
 			this->ElutionTimeLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F));
-			this->ElutionTimeLabel->Location = System::Drawing::Point(213, 333);
+			this->ElutionTimeLabel->Location = System::Drawing::Point(210, 333);
 			this->ElutionTimeLabel->Name = L"ElutionTimeLabel";
-			this->ElutionTimeLabel->Size = System::Drawing::Size(61, 30);
+			this->ElutionTimeLabel->Size = System::Drawing::Size(65, 30);
 			this->ElutionTimeLabel->TabIndex = 16;
-			this->ElutionTimeLabel->Text = L"Elution Time (sec)";
+			this->ElutionTimeLabel->Text = L"Elution Time";
 			this->ElutionTimeLabel->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// ImageCutAreaButton
 			// 
 			this->ImageCutAreaButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->ImageCutAreaButton->Location = System::Drawing::Point(120, 284);
+			this->ImageCutAreaButton->Location = System::Drawing::Point(120, 268);
 			this->ImageCutAreaButton->Name = L"ImageCutAreaButton";
 			this->ImageCutAreaButton->Size = System::Drawing::Size(123, 25);
 			this->ImageCutAreaButton->TabIndex = 12;
@@ -636,7 +683,7 @@ namespace ImagerRobot {
 			// StopElutionButton
 			// 
 			this->StopElutionButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->StopElutionButton->Location = System::Drawing::Point(125, 244);
+			this->StopElutionButton->Location = System::Drawing::Point(125, 223);
 			this->StopElutionButton->Name = L"StopElutionButton";
 			this->StopElutionButton->Size = System::Drawing::Size(113, 25);
 			this->StopElutionButton->TabIndex = 11;
@@ -646,7 +693,7 @@ namespace ImagerRobot {
 			// EluteSpotsButton
 			// 
 			this->EluteSpotsButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->EluteSpotsButton->Location = System::Drawing::Point(125, 214);
+			this->EluteSpotsButton->Location = System::Drawing::Point(125, 193);
 			this->EluteSpotsButton->Name = L"EluteSpotsButton";
 			this->EluteSpotsButton->Size = System::Drawing::Size(113, 25);
 			this->EluteSpotsButton->TabIndex = 10;
@@ -656,7 +703,7 @@ namespace ImagerRobot {
 			// RemoveSpotsButton
 			// 
 			this->RemoveSpotsButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->RemoveSpotsButton->Location = System::Drawing::Point(125, 169);
+			this->RemoveSpotsButton->Location = System::Drawing::Point(125, 128);
 			this->RemoveSpotsButton->Name = L"RemoveSpotsButton";
 			this->RemoveSpotsButton->Size = System::Drawing::Size(113, 25);
 			this->RemoveSpotsButton->TabIndex = 9;
@@ -666,7 +713,7 @@ namespace ImagerRobot {
 			// SelectSpotsButton
 			// 
 			this->SelectSpotsButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->SelectSpotsButton->Location = System::Drawing::Point(125, 139);
+			this->SelectSpotsButton->Location = System::Drawing::Point(125, 98);
 			this->SelectSpotsButton->Name = L"SelectSpotsButton";
 			this->SelectSpotsButton->Size = System::Drawing::Size(113, 25);
 			this->SelectSpotsButton->TabIndex = 8;
@@ -676,7 +723,7 @@ namespace ImagerRobot {
 			// SpotsLabel
 			// 
 			this->SpotsLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->SpotsLabel->Location = System::Drawing::Point(10, 116);
+			this->SpotsLabel->Location = System::Drawing::Point(10, 75);
 			this->SpotsLabel->Name = L"SpotsLabel";
 			this->SpotsLabel->Size = System::Drawing::Size(75, 20);
 			this->SpotsLabel->TabIndex = 7;
@@ -690,7 +737,7 @@ namespace ImagerRobot {
 				L"1", L"2", L"3", L"4", L"5", L"6", L"7", L"8",
 					L"9", L"10", L"11", L"12", L"13", L"14", L"15", L"16"
 			});
-			this->TipColBox->Location = System::Drawing::Point(142, 81);
+			this->TipColBox->Location = System::Drawing::Point(142, 40);
 			this->TipColBox->Name = L"TipColBox";
 			this->TipColBox->Size = System::Drawing::Size(45, 24);
 			this->TipColBox->TabIndex = 5;
@@ -701,7 +748,7 @@ namespace ImagerRobot {
 			this->TipRowBox->Cursor = System::Windows::Forms::Cursors::Default;
 			this->TipRowBox->FormattingEnabled = true;
 			this->TipRowBox->Items->AddRange(gcnew cli::array< System::Object^  >(8) { L"A", L"B", L"C", L"D", L"E", L"F", L"G", L"H" });
-			this->TipRowBox->Location = System::Drawing::Point(92, 81);
+			this->TipRowBox->Location = System::Drawing::Point(92, 40);
 			this->TipRowBox->Name = L"TipRowBox";
 			this->TipRowBox->Size = System::Drawing::Size(45, 24);
 			this->TipRowBox->TabIndex = 4;
@@ -710,28 +757,30 @@ namespace ImagerRobot {
 			// NextButton
 			// 
 			this->NextButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->NextButton->Location = System::Drawing::Point(197, 80);
+			this->NextButton->Location = System::Drawing::Point(197, 39);
 			this->NextButton->Name = L"NextButton";
-			this->NextButton->Size = System::Drawing::Size(45, 25);
+			this->NextButton->Size = System::Drawing::Size(50, 25);
 			this->NextButton->TabIndex = 3;
 			this->NextButton->Text = L"Next";
 			this->NextButton->UseVisualStyleBackColor = true;
+			this->NextButton->Click += gcnew System::EventHandler(this, &MyForm::NextButton_Click);
 			// 
 			// PrevButton
 			// 
 			this->PrevButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->PrevButton->Location = System::Drawing::Point(37, 80);
+			this->PrevButton->Location = System::Drawing::Point(32, 39);
 			this->PrevButton->Name = L"PrevButton";
-			this->PrevButton->Size = System::Drawing::Size(45, 25);
+			this->PrevButton->Size = System::Drawing::Size(50, 25);
 			this->PrevButton->TabIndex = 2;
 			this->PrevButton->Text = L"Prev";
 			this->PrevButton->UseVisualStyleBackColor = true;
+			this->PrevButton->Click += gcnew System::EventHandler(this, &MyForm::PrevButton_Click);
 			// 
 			// TipLabel
 			// 
 			this->TipLabel->BackColor = System::Drawing::Color::Transparent;
 			this->TipLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->TipLabel->Location = System::Drawing::Point(0, 56);
+			this->TipLabel->Location = System::Drawing::Point(0, 15);
 			this->TipLabel->Name = L"TipLabel";
 			this->TipLabel->Size = System::Drawing::Size(278, 20);
 			this->TipLabel->TabIndex = 1;
@@ -742,7 +791,7 @@ namespace ImagerRobot {
 			// 
 			this->LoadButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
 			this->LoadButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->LoadButton->Location = System::Drawing::Point(60, 20);
+			this->LoadButton->Location = System::Drawing::Point(47, 34);
 			this->LoadButton->Name = L"LoadButton";
 			this->LoadButton->Size = System::Drawing::Size(158, 25);
 			this->LoadButton->TabIndex = 0;
@@ -752,27 +801,28 @@ namespace ImagerRobot {
 			// AdvancedBox
 			// 
 			this->AdvancedBox->BackColor = System::Drawing::Color::White;
+			this->AdvancedBox->Controls->Add(this->LoadButton);
 			this->AdvancedBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
-			this->AdvancedBox->Location = System::Drawing::Point(10, 430);
+			this->AdvancedBox->Location = System::Drawing::Point(10, 425);
 			this->AdvancedBox->Name = L"AdvancedBox";
-			this->AdvancedBox->Size = System::Drawing::Size(278, 400);
+			this->AdvancedBox->Size = System::Drawing::Size(278, 405);
 			this->AdvancedBox->TabIndex = 14;
 			this->AdvancedBox->TabStop = false;
 			this->AdvancedBox->Text = L"Advanced";
 			// 
-			// ZoomBox
+			// Zoom
 			// 
-			this->ZoomBox->BackColor = System::Drawing::Color::Black;
-			this->ZoomBox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->ZoomBox->Location = System::Drawing::Point(319, 558);
-			this->ZoomBox->Name = L"ZoomBox";
-			this->ZoomBox->Size = System::Drawing::Size(256, 256);
-			this->ZoomBox->TabIndex = 15;
-			this->ZoomBox->TabStop = false;
+			this->Zoom->BackColor = System::Drawing::Color::Black;
+			this->Zoom->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->Zoom->Location = System::Drawing::Point(319, 438);
+			this->Zoom->Name = L"Zoom";
+			this->Zoom->Size = System::Drawing::Size(256, 256);
+			this->Zoom->TabIndex = 15;
+			this->Zoom->TabStop = false;
 			// 
 			// Zoom0
 			// 
-			this->Zoom0->Location = System::Drawing::Point(308, 815);
+			this->Zoom0->Location = System::Drawing::Point(308, 423);
 			this->Zoom0->Name = L"Zoom0";
 			this->Zoom0->Size = System::Drawing::Size(10, 15);
 			this->Zoom0->TabIndex = 16;
@@ -781,7 +831,8 @@ namespace ImagerRobot {
 			// 
 			// ZoomX2048
 			// 
-			this->ZoomX2048->Location = System::Drawing::Point(556, 815);
+			this->ZoomX2048->BackColor = System::Drawing::Color::Transparent;
+			this->ZoomX2048->Location = System::Drawing::Point(545, 423);
 			this->ZoomX2048->Name = L"ZoomX2048";
 			this->ZoomX2048->Size = System::Drawing::Size(40, 15);
 			this->ZoomX2048->TabIndex = 17;
@@ -791,7 +842,7 @@ namespace ImagerRobot {
 			// ZoomY2048
 			// 
 			this->ZoomY2048->BackColor = System::Drawing::Color::Transparent;
-			this->ZoomY2048->Location = System::Drawing::Point(285, 555);
+			this->ZoomY2048->Location = System::Drawing::Point(285, 681);
 			this->ZoomY2048->Name = L"ZoomY2048";
 			this->ZoomY2048->Size = System::Drawing::Size(40, 15);
 			this->ZoomY2048->TabIndex = 18;
@@ -800,7 +851,7 @@ namespace ImagerRobot {
 			// 
 			// ZoomY
 			// 
-			this->ZoomY->Location = System::Drawing::Point(305, 679);
+			this->ZoomY->Location = System::Drawing::Point(305, 559);
 			this->ZoomY->Name = L"ZoomY";
 			this->ZoomY->Size = System::Drawing::Size(12, 14);
 			this->ZoomY->TabIndex = 19;
@@ -808,31 +859,31 @@ namespace ImagerRobot {
 			// 
 			// ZoomX
 			// 
-			this->ZoomX->Location = System::Drawing::Point(441, 815);
+			this->ZoomX->Location = System::Drawing::Point(441, 423);
 			this->ZoomX->Name = L"ZoomX";
-			this->ZoomX->Size = System::Drawing::Size(12, 14);
+			this->ZoomX->Size = System::Drawing::Size(12, 15);
 			this->ZoomX->TabIndex = 20;
 			this->ZoomX->Text = L"x";
 			// 
 			// CurrentZoomDisplay
 			// 
 			this->CurrentZoomDisplay->BackColor = System::Drawing::Color::Transparent;
+			this->CurrentZoomDisplay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->CurrentZoomDisplay->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			this->CurrentZoomDisplay->ImageAlign = System::Drawing::ContentAlignment::TopCenter;
-			this->CurrentZoomDisplay->Location = System::Drawing::Point(0, 5);
+			this->CurrentZoomDisplay->Location = System::Drawing::Point(298, 707);
 			this->CurrentZoomDisplay->Name = L"CurrentZoomDisplay";
-			this->CurrentZoomDisplay->Size = System::Drawing::Size(278, 40);
+			this->CurrentZoomDisplay->Size = System::Drawing::Size(278, 25);
 			this->CurrentZoomDisplay->TabIndex = 21;
-			this->CurrentZoomDisplay->Text = L"Center (x, y): (768, 1024)     Side Length: 512";
+			this->CurrentZoomDisplay->Text = L"Center (x, y): (512, 1024)     Side Length: 512";
 			this->CurrentZoomDisplay->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// CurrentZoomBox
 			// 
-			this->CurrentZoomBox->Controls->Add(this->CurrentZoomDisplay);
 			this->CurrentZoomBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->CurrentZoomBox->Location = System::Drawing::Point(298, 431);
+			this->CurrentZoomBox->Location = System::Drawing::Point(298, 700);
 			this->CurrentZoomBox->Name = L"CurrentZoomBox";
-			this->CurrentZoomBox->Size = System::Drawing::Size(278, 45);
+			this->CurrentZoomBox->Size = System::Drawing::Size(0, 0);
 			this->CurrentZoomBox->TabIndex = 21;
 			this->CurrentZoomBox->TabStop = false;
 			this->CurrentZoomBox->Text = L"Current Zoom";
@@ -841,18 +892,73 @@ namespace ImagerRobot {
 			// 
 			this->NewZoomBox->Controls->Add(this->ResetZoomButton);
 			this->NewZoomBox->Controls->Add(this->ApplyZoomButton);
-			this->NewZoomBox->Controls->Add(this->richTextBox1);
+			this->NewZoomBox->Controls->Add(this->SideLengthEnter);
 			this->NewZoomBox->Controls->Add(this->CenterYEnter);
 			this->NewZoomBox->Controls->Add(this->CenterXEnter);
 			this->NewZoomBox->Controls->Add(this->SideLengthLabel);
 			this->NewZoomBox->Controls->Add(this->NewCenterLabel);
 			this->NewZoomBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->NewZoomBox->Location = System::Drawing::Point(298, 476);
+			this->NewZoomBox->Location = System::Drawing::Point(298, 750);
 			this->NewZoomBox->Name = L"NewZoomBox";
-			this->NewZoomBox->Size = System::Drawing::Size(278, 72);
+			this->NewZoomBox->Size = System::Drawing::Size(278, 80);
 			this->NewZoomBox->TabIndex = 22;
 			this->NewZoomBox->TabStop = false;
 			this->NewZoomBox->Text = L"Zoom";
+			// 
+			// ResetZoomButton
+			// 
+			this->ResetZoomButton->Location = System::Drawing::Point(188, 48);
+			this->ResetZoomButton->Name = L"ResetZoomButton";
+			this->ResetZoomButton->Size = System::Drawing::Size(85, 25);
+			this->ResetZoomButton->TabIndex = 6;
+			this->ResetZoomButton->Text = L"Reset Zoom";
+			this->ResetZoomButton->UseVisualStyleBackColor = true;
+			this->ResetZoomButton->Click += gcnew System::EventHandler(this, &MyForm::ResetZoomButton_Click);
+			// 
+			// ApplyZoomButton
+			// 
+			this->ApplyZoomButton->Location = System::Drawing::Point(188, 18);
+			this->ApplyZoomButton->Name = L"ApplyZoomButton";
+			this->ApplyZoomButton->Size = System::Drawing::Size(85, 25);
+			this->ApplyZoomButton->TabIndex = 5;
+			this->ApplyZoomButton->Text = L"Apply Zoom";
+			this->ApplyZoomButton->UseVisualStyleBackColor = true;
+			this->ApplyZoomButton->Click += gcnew System::EventHandler(this, &MyForm::ApplyZoomButton_Click);
+			// 
+			// SideLengthEnter
+			// 
+			this->SideLengthEnter->Location = System::Drawing::Point(84, 48);
+			this->SideLengthEnter->Name = L"SideLengthEnter";
+			this->SideLengthEnter->Size = System::Drawing::Size(90, 25);
+			this->SideLengthEnter->TabIndex = 4;
+			this->SideLengthEnter->Text = L"";
+			// 
+			// CenterYEnter
+			// 
+			this->CenterYEnter->Location = System::Drawing::Point(132, 18);
+			this->CenterYEnter->Name = L"CenterYEnter";
+			this->CenterYEnter->Size = System::Drawing::Size(42, 25);
+			this->CenterYEnter->TabIndex = 3;
+			this->CenterYEnter->Text = L"";
+			// 
+			// CenterXEnter
+			// 
+			this->CenterXEnter->Location = System::Drawing::Point(84, 18);
+			this->CenterXEnter->Name = L"CenterXEnter";
+			this->CenterXEnter->Size = System::Drawing::Size(42, 25);
+			this->CenterXEnter->TabIndex = 2;
+			this->CenterXEnter->Text = L"";
+			this->CenterXEnter->TextChanged += gcnew System::EventHandler(this, &MyForm::CenterXEnter_TextChanged);
+			// 
+			// SideLengthLabel
+			// 
+			this->SideLengthLabel->BackColor = System::Drawing::Color::Transparent;
+			this->SideLengthLabel->Location = System::Drawing::Point(5, 45);
+			this->SideLengthLabel->Name = L"SideLengthLabel";
+			this->SideLengthLabel->Size = System::Drawing::Size(80, 25);
+			this->SideLengthLabel->TabIndex = 1;
+			this->SideLengthLabel->Text = L"Side Length:";
+			this->SideLengthLabel->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// NewCenterLabel
 			// 
@@ -864,67 +970,15 @@ namespace ImagerRobot {
 			this->NewCenterLabel->Text = L"Center (x, y): (               ,               )";
 			this->NewCenterLabel->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
-			// SideLengthLabel
+			// CurrentZoom
 			// 
-			this->SideLengthLabel->BackColor = System::Drawing::Color::Transparent;
-			this->SideLengthLabel->Location = System::Drawing::Point(5, 40);
-			this->SideLengthLabel->Name = L"SideLengthLabel";
-			this->SideLengthLabel->Size = System::Drawing::Size(80, 25);
-			this->SideLengthLabel->TabIndex = 1;
-			this->SideLengthLabel->Text = L"Side Length:";
-			this->SideLengthLabel->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			// 
-			// CenterXEnter
-			// 
-			this->CenterXEnter->Location = System::Drawing::Point(84, 18);
-			this->CenterXEnter->Name = L"CenterXEnter";
-			this->CenterXEnter->Size = System::Drawing::Size(42, 23);
-			this->CenterXEnter->TabIndex = 2;
-			this->CenterXEnter->Text = L"";
-			// 
-			// CenterYEnter
-			// 
-			this->CenterYEnter->Location = System::Drawing::Point(132, 18);
-			this->CenterYEnter->Name = L"CenterYEnter";
-			this->CenterYEnter->Size = System::Drawing::Size(42, 23);
-			this->CenterYEnter->TabIndex = 3;
-			this->CenterYEnter->Text = L"";
-			// 
-			// richTextBox1
-			// 
-			this->richTextBox1->Location = System::Drawing::Point(84, 43);
-			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(90, 23);
-			this->richTextBox1->TabIndex = 4;
-			this->richTextBox1->Text = L"";
-			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->BackColor = System::Drawing::Color::White;
-			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->pictureBox1->Location = System::Drawing::Point(351, 654);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(64, 64);
-			this->pictureBox1->TabIndex = 23;
-			this->pictureBox1->TabStop = false;
-			// 
-			// ApplyZoomButton
-			// 
-			this->ApplyZoomButton->Location = System::Drawing::Point(188, 16);
-			this->ApplyZoomButton->Name = L"ApplyZoomButton";
-			this->ApplyZoomButton->Size = System::Drawing::Size(85, 25);
-			this->ApplyZoomButton->TabIndex = 5;
-			this->ApplyZoomButton->Text = L"Apply Zoom";
-			this->ApplyZoomButton->UseVisualStyleBackColor = true;
-			// 
-			// ResetZoomButton
-			// 
-			this->ResetZoomButton->Location = System::Drawing::Point(188, 42);
-			this->ResetZoomButton->Name = L"ResetZoomButton";
-			this->ResetZoomButton->Size = System::Drawing::Size(85, 25);
-			this->ResetZoomButton->TabIndex = 6;
-			this->ResetZoomButton->Text = L"Reset Zoom";
-			this->ResetZoomButton->UseVisualStyleBackColor = true;
+			this->CurrentZoom->BackColor = System::Drawing::Color::White;
+			this->CurrentZoom->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->CurrentZoom->Location = System::Drawing::Point(351, 534);
+			this->CurrentZoom->Name = L"CurrentZoom";
+			this->CurrentZoom->Size = System::Drawing::Size(64, 64);
+			this->CurrentZoom->TabIndex = 23;
+			this->CurrentZoom->TabStop = false;
 			// 
 			// MyForm
 			// 
@@ -933,15 +987,15 @@ namespace ImagerRobot {
 			this->BackColor = System::Drawing::Color::White;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(1350, 838);
-			this->Controls->Add(this->pictureBox1);
+			this->Controls->Add(this->CurrentZoomDisplay);
+			this->Controls->Add(this->CurrentZoom);
 			this->Controls->Add(this->NewZoomBox);
 			this->Controls->Add(this->CurrentZoomBox);
 			this->Controls->Add(this->ZoomX);
 			this->Controls->Add(this->ZoomY);
 			this->Controls->Add(this->AdvancedBox);
-			this->Controls->Add(this->ZoomBox);
+			this->Controls->Add(this->Zoom);
 			this->Controls->Add(this->ZoomY2048);
-			this->Controls->Add(this->ZoomX2048);
 			this->Controls->Add(this->Zoom0);
 			this->Controls->Add(this->EluterBox);
 			this->Controls->Add(this->ImagerBox);
@@ -955,10 +1009,9 @@ namespace ImagerRobot {
 			this->Controls->Add(this->BrightnessSlider);
 			this->Controls->Add(this->ImageName);
 			this->Controls->Add(this->ImageDisplay);
-			this->Controls->Add(this->SaveLocation);
-			this->Controls->Add(this->SaveLocationLabel);
+			this->Controls->Add(this->ZoomX2048);
 			this->Cursor = System::Windows::Forms::Cursors::Default;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
 			this->Name = L"MyForm";
 			this->Text = L"Imager Robot";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageDisplay))->EndInit();
@@ -967,10 +1020,11 @@ namespace ImagerRobot {
 			this->ImagerBox->ResumeLayout(false);
 			this->ScalingBox->ResumeLayout(false);
 			this->EluterBox->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ZoomBox))->EndInit();
-			this->CurrentZoomBox->ResumeLayout(false);
+			this->EluterBox->PerformLayout();
+			this->AdvancedBox->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Zoom))->EndInit();
 			this->NewZoomBox->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CurrentZoom))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -979,6 +1033,116 @@ namespace ImagerRobot {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+//"""globals"""
+System::String^ minVal = L"0";
+System::String^ maxVal = L"0";
+System::String^ currX = L"512";
+System::String^ currY = L"1024";
+System::String^ currSL = L"512";
+int zoomBoxX = 319;
+int zoomBoxY = 572;
+int zoomBoxSL = 256;
 
+//Prev Button	(unfinished)
+private: System::Void PrevButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	if ((this->TipRowBox->SelectedIndex != 0) || (this->TipColBox->SelectedIndex != 0)) {
+		if (this->TipColBox->SelectedIndex != 0) this->TipColBox->SelectedIndex--;
+		else {
+			this->TipRowBox->SelectedIndex--;
+			this->TipColBox->SelectedIndex = 15;
+		}
+	}
+}
+		
+//Next Button	(unfinished)
+private: System::Void NextButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	if ((this->TipRowBox->SelectedIndex != 7) || (this->TipColBox->SelectedIndex != 15)) {
+		if (this->TipColBox->SelectedIndex != 15) this->TipColBox->SelectedIndex++;
+		else {
+			this->TipRowBox->SelectedIndex++;
+			this->TipColBox->SelectedIndex = 0;
+		}
+	}
+}
+
+//Apply Button	(unfinished)
+private: System::Void ApplyButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	try {
+		int min = int::Parse(this->MinEnter->Text);
+		minVal = this->MinEnter->Text;
+	} catch (System::FormatException^) {
+		if (!String::Equals(this->MinEnter->Text, L""))  MessageBox::Show(L"The Min value entered must an integer.");
+	}
+	try {
+		int max = int::Parse(this->MaxEnter->Text);
+		maxVal = this->MaxEnter->Text;
+	} catch (System::FormatException^) {
+		if (!String::Equals(this->MaxEnter->Text, L""))  MessageBox::Show(L"The Max value entered must an integer.");
+	}
+	this->MinEnter->Text = L"";
+	this->MaxEnter->Text = L"";
+	this->MinMaxDisplay->Text = L"Min: " + minVal + ", Max: " + maxVal;
+}
+
+//Reset Zoom Button	(unfinished)
+private: System::Void ResetZoomButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	currX = L"1024";
+	currY = L"1024";
+	currSL = L"2048";
+	this->CurrentZoomDisplay->Text = L"Center (x, y): (" + currX + ", " + currY + ")     Side Length: " + currSL;
+	this->CurrentZoom->Location = System::Drawing::Point(319, 572);
+	this->CurrentZoom->Size = System::Drawing::Size(256, 256);
+}
+
+//Apply Zoom Button	(unfinished)
+private: System::Void ApplyZoomButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	try {
+		int x = int::Parse(this->CenterXEnter->Text);
+		if (x < 32 || x > 2016) throw x;
+		currX = this->CenterXEnter->Text;
+	} catch (System::FormatException^) {
+		if (!String::Equals(this->CenterXEnter->Text, L""))  MessageBox::Show(L"The X value entered must an integer.");
+	} catch (int x) {
+		MessageBox::Show(L"The X value entered must be between 32 and 2016.");
+	}
+
+	try {
+		int y = int::Parse(this->CenterYEnter->Text);
+		if (y < 32 || y > 2016) throw y;
+		currY = this->CenterYEnter->Text;
+	} catch (System::FormatException^) {
+		if (!String::Equals(this->CenterYEnter->Text, L""))  MessageBox::Show(L"The Y value entered must an integer.");
+	} catch(int y) {
+		MessageBox::Show(L"The Y value entered must be between 32 and 2016.");
+	}
+
+	try {
+		int sl = int::Parse(this->SideLengthEnter->Text);
+		if (sl < 32 || sl > 2048) throw sl;
+		currSL = this->SideLengthEnter->Text;
+	} catch (System::FormatException^) {
+		if (!String::Equals(this->SideLengthEnter->Text, L""))  MessageBox::Show(L"The side length value entered must an integer.");
+	} catch (int sl) {
+		MessageBox::Show(L"The side length value entered must be between 64 and 2048.");
+	}
+
+	if (int::Parse(currSL) > 2 * int::Parse(currX)) currSL = System::Convert::ToString(2 * int::Parse(currX));
+	if (int::Parse(currSL) > 2 * int::Parse(currY)) currSL = System::Convert::ToString(2 * int::Parse(currY));
+	if (int::Parse(currSL) > 2 * (2048 - int::Parse(currX))) currSL = System::Convert::ToString(2 * (2048 - int::Parse(currX)));
+	if (int::Parse(currSL) > 2 * (2048 - int::Parse(currY))) currSL = System::Convert::ToString(2 * (2048 - int::Parse(currY)));
+
+	this->CenterXEnter->Text = L"";
+	this->CenterYEnter->Text = L"";
+	this->SideLengthEnter->Text = L"";
+	this->CurrentZoomDisplay->Text = L"Center (x, y): (" + currX + ", " + currY + ")     Side Length: " + currSL;
+	int xOffset = 319 - int::Parse(currSL) / 16 + int::Parse(currX) / 8;
+	int yOffset = 572 - int::Parse(currSL) / 16 + int::Parse(currY) / 8;
+	this->CurrentZoom->Location = System::Drawing::Point(xOffset, yOffset);
+	this->CurrentZoom->Size = System::Drawing::Size(int::Parse(currSL) / 8, int::Parse(currSL) / 8);
+}
+
+
+private: System::Void CenterXEnter_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
 };
 }

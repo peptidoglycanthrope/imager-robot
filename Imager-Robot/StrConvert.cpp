@@ -12,12 +12,3 @@ void to_std_string ( String ^ s, string& os ) {
    os = chars;
    Marshal::FreeHGlobal(IntPtr((void*)chars));
 }
-
-int main() {
-    String test = new String("oh god");
-    string standard;
-
-    to_std_string(test, standard);
-    cout << standard << endl;
-    return 0;
-}

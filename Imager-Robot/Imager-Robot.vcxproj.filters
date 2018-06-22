@@ -24,6 +24,12 @@
     <ClCompile Include="SpotList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StrConvert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImgAcquire.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -33,6 +39,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SpotList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImgAcquire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StrConvert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

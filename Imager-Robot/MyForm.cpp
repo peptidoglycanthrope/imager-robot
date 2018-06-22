@@ -10,8 +10,8 @@ using namespace System::Windows::Forms;
 
 void main() {
 
-	bool do_XCarve_stuff = true;
-	bool do_UI_stuff = false;
+	bool do_XCarve_stuff = false;
+	bool do_UI_stuff = true;
 
 	if (do_XCarve_stuff) {
 		XCarve XC;
