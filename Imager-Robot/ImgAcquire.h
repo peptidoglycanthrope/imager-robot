@@ -12,19 +12,22 @@ using namespace std;
 
 class ImgAcquire{
 	char cam_name[CAM_NAME_LEN]; //camera name will go here
-	int16 hcam; //camera handle will go here
+	int16 hcam = 0; //camera handle will go here
 
-	uns16 x_max = 2688;
-	uns16 y_max = 2200;
+	uns16 x_size = 2688;
+	uns16 y_size = 2200;
+
 	uns16 bin = 1; //dimensions of image, and binning
 
 	rgn_type region;
 
 	uns32 size; //will contain number of bytes in pixel stream
 
+	uns32 byte_count;
+
 	void* frame; //this will contain the image
 
-	int16* status; //track status of exposure
+	int16 status; //track status of exposure
 
 	public: 
 		void init(); //sets cam_name and hcam

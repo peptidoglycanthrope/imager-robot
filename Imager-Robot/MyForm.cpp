@@ -11,7 +11,8 @@ using namespace System::Windows::Forms;
 void main() {
 
 	bool do_XCarve_stuff = false;
-	bool do_UI_stuff = true;
+	bool do_UI_stuff = false;
+	bool do_image_stuff = true;
 	/*
 	      .--------._
          (`--'       `-.
@@ -64,5 +65,12 @@ void main() {
 	if (do_UI_stuff) {
 		ImagerRobot::MyForm form;
 		Application::Run(%form);
+	}
+	
+	if (do_image_stuff) {
+		ImgAcquire Img;
+
+		Img.init();
+		Img.AcquireOne(100);
 	}
 }
