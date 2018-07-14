@@ -75,7 +75,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\opencv\build\include;C:\Program Files\Photometrics\PVCamSDK\Lib\i386;$(IncludePath)</IncludePath>
+    <IncludePath>C:\opencv\build\include\;C:\Program Files\Photometrics\PVCamSDK\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Photometrics\PVCamSDK\Lib;C:\opencv\build;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\Users\EluterUser\Desktop\opencv\build\x64\vc12\bin;C:\Program Files\Photometrics\PVCamSDK\Lib\amd64;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -107,7 +109,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Program Files\Photometrics\PVCamSDK\Lib\i386\pvcam32.lib;C:\Program Files\Photometrics\PVCamSDK\Lib\i386\pvcam_helper_color.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\opencv\build\x64\vc12\lib\opencv_world300.lib;C:\opencv\build\x64\vc12\lib\opencv_world300d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
