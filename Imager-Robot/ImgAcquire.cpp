@@ -1,6 +1,6 @@
-/*
-
 #include "ImgAcquire.h"
+
+//using namespace cv;
 
 void ImgAcquire::init(){
 	pl_pvcam_init(); //initalize library
@@ -29,8 +29,5 @@ void ImgAcquire::AcquireOne(int exp){
 		pl_exp_check_status(hcam, status, NULL);
 	}
 	//readout complete
-
 	
 }
-
-*/

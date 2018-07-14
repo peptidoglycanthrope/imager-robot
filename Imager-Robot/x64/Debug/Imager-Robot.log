@@ -1,7 +1,7 @@
-﻿Build started 7/14/2018 1:53:55 PM.
+﻿Build started 7/14/2018 3:05:14 PM.
      1>Project "C:\Users\EluterUser\Documents\git-repos\imager-robot\Imager-Robot\Imager-Robot.vcxproj" on node 2 (Build target(s)).
      1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\EluterUser\Documents\git-repos\imager-robot\x64\Debug\Imager-Robot.exe" /INCREMENTAL /NOLOGO C:\opencv\build\x64\vc12\lib\opencv_world300.lib C:\opencv\build\x64\vc12\lib\opencv_world300d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /ASSEMBLYRESOURCE:x64\Debug\ImagerRobot.MyForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\EluterUser\Documents\git-repos\imager-robot\x64\Debug\Imager-Robot.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X64 x64\Debug\Draw.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\EluterUser\Documents\git-repos\imager-robot\x64\Debug\Imager-Robot.exe" /INCREMENTAL /NOLOGO C:\opencv\build\x64\vc12\lib\opencv_world300.lib C:\opencv\build\x64\vc12\lib\opencv_world300d.lib pvcam64.lib pvcam_helper_color.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /ASSEMBLYRESOURCE:x64\Debug\ImagerRobot.MyForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\EluterUser\Documents\git-repos\imager-robot\x64\Debug\Imager-Robot.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X64 x64\Debug\Draw.obj
          x64\Debug\ImgAcquire.obj
          x64\Debug\MyForm.obj
          x64\Debug\SpotList.obj
@@ -12,4 +12,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.13
+Time Elapsed 00:00:01.26
