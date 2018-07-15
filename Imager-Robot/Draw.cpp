@@ -57,10 +57,12 @@ bool move_parse(string move, float* x, float* y){ //Parses instruction in format
 void XCarve::draw(vector<string> draw){
 	int size = draw.size();
 	//going to assume the unlocking, homing, and zeroing is done in this function and is not specified by the user
-	vector<string> grbls = { "$X\n", "$H\n" }; //unlock home zero
+	//vector<string> grbls = { "$X\n", "$H\n", "M4 S0\n" }; //unlock home zero, set spindle speed to 0
+
+	vector<string> grbls = { "$X\n", "M4 S0\n" }; //unlock home zero, set spindle speed to 0
 
 	string zero = "G91 G0 X" + to_string(ORI_X) + " Y" + to_string(ORI_Y) + " Z" + to_string(ORI_Z) + "\n";
-	grbls.push_back(zero);
+	//grbls.push_back(zero);
 
 	bool down = false;
 	float x = 0;
@@ -82,6 +84,13 @@ void XCarve::draw(vector<string> draw){
 				grbls.push_back("G91 G0 Z20\n");
 				down = true;
 			}
+		}
+		else if (draw[i] == "T")
+		{
+			grbls.push_back("S12000\n");
+			grbls.push_back("G4 P.005\n");
+			grbls.push_back("S0\n");
+
 		}
 		else if (draw[i][0] == 'M'){ //in the format M a b
 			float newx;

@@ -17,4 +17,5 @@ ref class XCarve {
 U - pen up
 D - pen down
 M x y - move to point (x,y)
+T - drop tip
 */
