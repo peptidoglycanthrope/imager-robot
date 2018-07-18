@@ -41,11 +41,17 @@ void main() {
 
 	if (do_XCarve_stuff) {
 		XCarve XC;
-		
+
 		XC.init();
 
 		//vector<string> commands = {"M 30 10", "D", "M 10 20", "M 30 30", "U", "M 15 40", "D", "M 25 50", "U", "M 25 40", "D", "M 15 50", "U", "M 15 60", "D", "M 20 70", "M 25 60", "U", "M 20 70", "D", "M 20 80", "U", "M 15 90", "D", "M 25 100", "U", "M 25 90", "D", "M 15 100", "U", "M 30 110", "D", "M 10 120", "M 30 130", "U", "M 0 0"};
-		vector<string> commands = {"T"};
+		vector<string> commands = {};
+		int loss[20] = {76, 50, 7, 21, 67, 83, 19, 79, 64, 52, 14, 2, 31, 26, 74, 82, 81, 33, 55, 62};
+		for (int i = 0; i < 20; i++){
+			commands.push_back("P " + to_string(loss[i]));
+			commands.push_back("M 100 100");
+			commands.push_back("T");
+		}
 		XC.draw(commands);
 	}
 
